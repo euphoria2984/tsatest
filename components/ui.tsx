@@ -64,7 +64,7 @@ export function ExamCard({ examKey }: { examKey: ExamKey }) {
   const e = EXAMS[examKey];
   return (
     <a
-      href={go(`/practice/${examKey}`)}
+      href={go(`/${examKey}`)}
       aria-label={`Vào phòng luyện ${e.name}`}
       className="group examcard-glow relative flex w-full flex-col rounded-lg border bg-white p-6 text-left transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2"
     >
