@@ -125,7 +125,7 @@ export default function HeroBanner() {
             HSA · TSA · THPTQG
           </span>
           <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-extrabold leading-[1.1] [text-wrap:balance] sm:text-[52px]">
-            Luyện thi đúng cấu trúc, vào phòng thi tự tin hơn
+            LUYỆN THI ĐÚNG CẤU TRÚC, VÀO PHÒNG TỰ TIN HƠN
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
             Làm đề mô phỏng có bấm giờ, chấm điểm ngay khi nộp bài và học cùng cộng đồng, hoàn toàn miễn phí.
