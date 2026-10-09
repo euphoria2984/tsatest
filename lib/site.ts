@@ -36,11 +36,11 @@ export const EXAM_ORDER: ExamKey[] = ["hsa", "tsa", "thptqg"];
 
 // Menu của trang (cuộn tới từng phần trên cùng một trang)
 export const NAV = [
-  { label: "Giới thiệu", id: "gioi-thieu" },
-  { label: "Kỳ thi", id: "ky-thi" },
-  { label: "Tính năng", id: "tinh-nang" },
-  { label: "Cách dùng", id: "cach-dung" },
-  { label: "Liên hệ", id: "lien-he" },
+{ label: "Giới thiệu", id: "gioi-thieu", icon: "compass" },
+{ label: "Kỳ thi", id: "ky-thi", icon: "cap" },
+{ label: "Tính năng", id: "tinh-nang", icon: "sparkles" },
+{ label: "Cách dùng", id: "cach-dung", icon: "list" },
+{ label: "Liên hệ", id: "lien-he", icon: "compass" },
 ] as const;
 
 // ============================================================================
