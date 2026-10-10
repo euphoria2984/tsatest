@@ -133,7 +133,7 @@ export default function HeroBanner() {
               Làm đề mô phỏng có bấm giờ, chấm điểm ngay khi nộp bài và học cùng cộng đồng, hoàn toàn miễn phí.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-start gap-3">
-              <a href={go(" ")} className="btn-tab btn-tab--onlight inline-flex items-center gap-2 bg-white px-8 py-3 text-sm font-bold transition hover:brightness-95" style={{ color: "var(--brand-red)" }}>
+              <a href={go("")} className="btn-tab btn-tab--onlight inline-flex items-center gap-2 bg-white px-8 py-3 text-sm font-bold transition hover:brightness-95" style={{ color: "var(--brand-red)" }}>
                 Vào phòng luyện
               </a>
               <a href="#tinh-nang" className="btn-tab btn-tab-outline inline-flex items-center gap-2 px-8 py-3 text-sm font-bold text-white transition hover:bg-white/10">
