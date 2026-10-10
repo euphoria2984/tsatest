@@ -67,12 +67,105 @@ button:not(:disabled), [role="button"]:not(:disabled), label, summary { cursor: 
 :is(button, a):is(.rounded, .rounded-md, .rounded-lg):not(.glass-box) { border-radius: 0.25rem; }
 
 /* Cuộn tới phần nào thì chừa chỗ cho header dính phía trên */
-section[id] { scroll-margin-top: 64px; }
-#ky-thi { scroll-margin-top: 140px; }
-#tinh-nang, #lien-he { scroll-margin-top: 112px; }
+section[id] { scroll-margin-top: 16px; }
+#ky-thi { scroll-margin-top: 16px; }
+#tinh-nang, #lien-he { scroll-margin-top: 16px; }
 
 /* Hộp "Đổi nền": bật ra / thu vào */
 @keyframes app-pop-in { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 @keyframes app-pop-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.9); } }
 .app-pop-in { animation: app-pop-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both; transform-origin: top right; }
 .app-pop-out { animation: app-pop-out 160ms ease both; transform-origin: top right; }
+
+/* Chữ đậm hơn nữa: font Google Sans chỉ có tối đa độ đậm 700 nên font-black không đậm thêm,
+   viền chữ cùng màu để nét dày lên (dùng cho tiêu đề đỏ và dòng tiêu đề đầu trang) */
+.text-heavy { -webkit-text-stroke: 0.02em currentColor; paint-order: stroke fill; }
+
+/* Font số (Anton) và font tiêu đề box đếm ngược (chữ có chân) */
+.font-num { font-family: "Anton", Impact, "Arial Narrow", sans-serif; font-weight: 400; }
+.font-serif-title { font-family: "Playfair Display", Georgia, "Times New Roman", serif; font-weight: 500; }
+
+/* Ô số hình "số 8": hai khối bo tròn chồng lên nhau, chỗ giao nhau thắt lại thành hai khuyết nhỏ ở hai bên */
+.flip-tile {
+  --h: 84px; --w: 58px; --half: 46px; --ro: 10px; --ri: 17px; --ink: #3a3031; --paper: #efe6e2;
+  position: relative; isolation: isolate;
+  display: flex; align-items: center; justify-content: center;
+  width: var(--w); height: var(--h); color: var(--ink); line-height: 1; font-size: calc(var(--h) * 0.68);
+}
+.flip-tile::before, .flip-tile::after { content: ""; position: absolute; left: 0; right: 0; height: var(--half); background: var(--paper); z-index: -1; }
+.flip-tile::before { top: 0; border-radius: var(--ro) var(--ro) var(--ri) var(--ri); }
+.flip-tile::after { bottom: 0; border-radius: var(--ri) var(--ri) var(--ro) var(--ro); }
+.flip-lg { --h: 104px; --w: 70px; --half: 56px; --ro: 12px; --ri: 20px; }
+.flip-sm { --h: 42px; --w: 29px; --half: 23px; --ro: 6px; --ri: 9px; }
+@media (min-width: 640px) { .flip-lg { --h: 116px; --w: 80px; --half: 62px; --ro: 13px; --ri: 22px; } .flip-sm { --h: 46px; --w: 32px; --half: 25px; } }
+/* Màn hình thấp (laptop nhỏ): thu nhỏ thêm để box nằm gọn trong một màn hình */
+@media (min-width: 1024px) and (max-height: 760px) { .flip-lg { --h: 88px; --w: 60px; --half: 47px; --ro: 10px; --ri: 17px; } .flip-sm { --h: 38px; --w: 26px; --half: 21px; --ri: 8px; } }
+
+/* Đồng hồ La Mã ở góc box đếm ngược: mặt số quay chậm */
+@keyframes clock-spin { to { transform: rotate(360deg); } }
+.clock-spin { animation: clock-spin 100s linear infinite; transform-origin: 0 0; }
+
+/* ===== Phong cách khung viền mảnh trang trí (kiểu Genshin Impact) =====
+   Khung viền kép, góc cắt vát, có hạt hình thoi ở bốn góc; vẽ bằng border-image nên co giãn theo mọi kích thước box. */
+:root {
+  --frame-red-soft: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2772%27%20height%3D%2772%27%20viewBox%3D%270%200%2072%2072%27%20fill%3D%27none%27%3E%3Cpath%20d%3D%27M16%201H56L71%2016V56L56%2071H16L1%2056V16Z%27%20stroke%3D%27%23961b2b%27%20stroke-width%3D%272%27%20stroke-opacity%3D%270.5%27%2F%3E%3Cpath%20d%3D%27M20%207H52L65%2020V52L52%2065H20L7%2052V20Z%27%20stroke%3D%27%23961b2b%27%20stroke-width%3D%271.5%27%20stroke-opacity%3D%270.5%27%2F%3E%3Cpath%20d%3D%27M8.5%205.3L11.7%208.5L8.5%2011.7L5.3%208.5Z%27%20fill%3D%27%23961b2b%27%20fill-opacity%3D%270.5%27%2F%3E%3Cpath%20d%3D%27M63.5%205.3L66.7%208.5L63.5%2011.7L60.3%208.5Z%27%20fill%3D%27%23961b2b%27%20fill-opacity%3D%270.5%27%2F%3E%3Cpath%20d%3D%27M8.5%2060.3L11.7%2063.5L8.5%2066.7L5.3%2063.5Z%27%20fill%3D%27%23961b2b%27%20fill-opacity%3D%270.5%27%2F%3E%3Cpath%20d%3D%27M63.5%2060.3L66.7%2063.5L63.5%2066.7L60.3%2063.5Z%27%20fill%3D%27%23961b2b%27%20fill-opacity%3D%270.5%27%2F%3E%3C%2Fsvg%3E");
+  --frame-red: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2772%27%20height%3D%2772%27%20viewBox%3D%270%200%2072%2072%27%20fill%3D%27none%27%3E%3Cpath%20d%3D%27M16%201H56L71%2016V56L56%2071H16L1%2056V16Z%27%20stroke%3D%27%23961b2b%27%20stroke-width%3D%272%27%20stroke-opacity%3D%271%27%2F%3E%3Cpath%20d%3D%27M20%207H52L65%2020V52L52%2065H20L7%2052V20Z%27%20stroke%3D%27%23961b2b%27%20stroke-width%3D%271.5%27%20stroke-opacity%3D%271%27%2F%3E%3Cpath%20d%3D%27M8.5%205.3L11.7%208.5L8.5%2011.7L5.3%208.5Z%27%20fill%3D%27%23961b2b%27%20fill-opacity%3D%271%27%2F%3E%3Cpath%20d%3D%27M63.5%205.3L66.7%208.5L63.5%2011.7L60.3%208.5Z%27%20fill%3D%27%23961b2b%27%20fill-opacity%3D%271%27%2F%3E%3Cpath%20d%3D%27M8.5%2060.3L11.7%2063.5L8.5%2066.7L5.3%2063.5Z%27%20fill%3D%27%23961b2b%27%20fill-opacity%3D%271%27%2F%3E%3Cpath%20d%3D%27M63.5%2060.3L66.7%2063.5L63.5%2066.7L60.3%2063.5Z%27%20fill%3D%27%23961b2b%27%20fill-opacity%3D%271%27%2F%3E%3C%2Fsvg%3E");
+  --frame-cream: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2772%27%20height%3D%2772%27%20viewBox%3D%270%200%2072%2072%27%20fill%3D%27none%27%3E%3Cpath%20d%3D%27M16%201H56L71%2016V56L56%2071H16L1%2056V16Z%27%20stroke%3D%27%23efe6e2%27%20stroke-width%3D%272%27%20stroke-opacity%3D%270.75%27%2F%3E%3Cpath%20d%3D%27M20%207H52L65%2020V52L52%2065H20L7%2052V20Z%27%20stroke%3D%27%23efe6e2%27%20stroke-width%3D%271.5%27%20stroke-opacity%3D%270.75%27%2F%3E%3Cpath%20d%3D%27M8.5%205.3L11.7%208.5L8.5%2011.7L5.3%208.5Z%27%20fill%3D%27%23efe6e2%27%20fill-opacity%3D%270.75%27%2F%3E%3Cpath%20d%3D%27M63.5%205.3L66.7%208.5L63.5%2011.7L60.3%208.5Z%27%20fill%3D%27%23efe6e2%27%20fill-opacity%3D%270.75%27%2F%3E%3Cpath%20d%3D%27M8.5%2060.3L11.7%2063.5L8.5%2066.7L5.3%2063.5Z%27%20fill%3D%27%23efe6e2%27%20fill-opacity%3D%270.75%27%2F%3E%3Cpath%20d%3D%27M63.5%2060.3L66.7%2063.5L63.5%2066.7L60.3%2063.5Z%27%20fill%3D%27%23efe6e2%27%20fill-opacity%3D%270.75%27%2F%3E%3C%2Fsvg%3E");
+}
+.frame-red, .frame-red-soft, .frame-cream, .examcard-glow:not(.fixed) {
+  border-style: solid; border-color: transparent; border-radius: 0;
+  border-width: var(--fw, 12px);
+  border-image-slice: 24; border-image-width: var(--fw, 12px); border-image-repeat: stretch;
+}
+.frame-red { border-image-source: var(--frame-red); }
+.frame-cream { border-image-source: var(--frame-cream); }
+.frame-red-soft, .examcard-glow:not(.fixed) { border-image-source: var(--frame-red-soft); }
+.examcard-glow:not(.fixed) { --fw: 10px; }
+.frame-red-soft:hover, .examcard-glow:not(.fixed):hover { border-image-source: var(--frame-red); }
+
+/* Nhãn, thẻ nhỏ: bốn góc khoét lõm hình cung tròn (kiểu tem/hoa văn) */
+.cut-corners {
+  --r: 6px; border-radius: 0 !important;
+  -webkit-mask: radial-gradient(circle var(--r) at 0 0, #0000 97%, #000) top left / 51% 51% no-repeat, radial-gradient(circle var(--r) at 100% 0, #0000 97%, #000) top right / 51% 51% no-repeat, radial-gradient(circle var(--r) at 0 100%, #0000 97%, #000) bottom left / 51% 51% no-repeat, radial-gradient(circle var(--r) at 100% 100%, #0000 97%, #000) bottom right / 51% 51% no-repeat;
+          mask: radial-gradient(circle var(--r) at 0 0, #0000 97%, #000) top left / 51% 51% no-repeat, radial-gradient(circle var(--r) at 100% 0, #0000 97%, #000) top right / 51% 51% no-repeat, radial-gradient(circle var(--r) at 0 100%, #0000 97%, #000) bottom left / 51% 51% no-repeat, radial-gradient(circle var(--r) at 100% 100%, #0000 97%, #000) bottom right / 51% 51% no-repeat;
+}
+
+/* Cắt vát bốn góc của box có khung, khớp với đường vát của khung viền (không để lòi góc vuông của nền) */
+.frame-red, .frame-red-soft, .frame-cream, .examcard-glow:not(.fixed) {
+  --c: calc(var(--fw, 12px) * 0.708);
+  clip-path: polygon(var(--c) 0, calc(100% - var(--c)) 0, 100% var(--c), 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, var(--c) 100%, 0 calc(100% - var(--c)), 0 var(--c));
+}
+
+/* Nút hình lục giác (hai đầu nhọn), bên trong có đường viền kép */
+.btn-tab {
+  --p: 12px; position: relative; border-radius: 0 !important; box-shadow: none !important;
+  clip-path: polygon(var(--p) 0, calc(100% - var(--p)) 0, 100% 50%, calc(100% - var(--p)) 100%, var(--p) 100%, 0 50%);
+}
+.btn-tab-sm { --p: 9px; }
+.btn-tab::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; background: var(--ring, rgba(255, 255, 255, 0.7));
+  clip-path: polygon(evenodd,
+    calc(var(--p) + 1.8px) 3px, calc(100% - var(--p) - 1.8px) 3px, calc(100% - 3.4px) 50%, calc(100% - var(--p) - 1.8px) calc(100% - 3px), calc(var(--p) + 1.8px) calc(100% - 3px), 3.4px 50%, calc(var(--p) + 1.8px) 3px,
+    calc(var(--p) + 2.5px) 4.1px, calc(100% - var(--p) - 2.5px) 4.1px, calc(100% - 4.6px) 50%, calc(100% - var(--p) - 2.5px) calc(100% - 4.1px), calc(var(--p) + 2.5px) calc(100% - 4.1px), 4.6px 50%, calc(var(--p) + 2.5px) 4.1px);
+}
+.btn-tab--onlight { --ring: rgba(var(--brand-red-rgb), 0.6); }
+/* Biến thể chỉ có viền (nền trong suốt): thêm đường viền ngoài */
+.btn-tab-outline::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; background: var(--ring, rgba(255, 255, 255, 0.8));
+  clip-path: polygon(evenodd,
+    var(--p) 0, calc(100% - var(--p)) 0, 100% 50%, calc(100% - var(--p)) 100%, var(--p) 100%, 0 50%, var(--p) 0,
+    calc(var(--p) + 0.7px) 1.2px, calc(100% - var(--p) - 0.7px) 1.2px, calc(100% - 1.4px) 50%, calc(100% - var(--p) - 0.7px) calc(100% - 1.2px), calc(var(--p) + 0.7px) calc(100% - 1.2px), 1.4px 50%, calc(var(--p) + 0.7px) 1.2px);
+}
+
+/* Thiết bị cảm ứng: header luôn hiện nên chừa chỗ khi cuộn tới từng mục */
+@media (hover: none) { section[id], #ky-thi, #tinh-nang, #lien-he { scroll-margin-top: 72px; } }
+
+/* Nhãn chữ nhật vát nhẹ bốn góc, có đường viền 1px chạy theo cả các cạnh vát */
+.tag-chamfer {
+  position: relative; border-radius: 0;
+  clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px);
+}
+.tag-chamfer::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; background: var(--ring, currentColor);
+  clip-path: polygon(evenodd, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px, 4px 0, 4.414px 1px, calc(100% - 4.414px) 1px, calc(100% - 1px) 4.414px, calc(100% - 1px) calc(100% - 4.414px), calc(100% - 4.414px) calc(100% - 1px), 4.414px calc(100% - 1px), 1px calc(100% - 4.414px), 1px 4.414px, 4.414px 1px);
+}

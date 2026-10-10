@@ -11,6 +11,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Pencil, Plus, X } from "lucide-react";
 import { HERO_DEFAULT, go } from "@/lib/site";
+import ExamCountdown from "@/components/ExamCountdown";
 
 type Preset = { id: string; label: string; from: string; to: string };
 const PRESETS: Preset[] = [
@@ -104,7 +105,7 @@ export default function HeroBanner() {
   const preset = presetId ? PRESETS.find((p) => p.id === presetId) ?? PRESETS[0] : null;
   const style: React.CSSProperties =
     bg.kind === "image"
-      ? { backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.25)), url(${bg.url})`, backgroundSize: "cover", backgroundPosition: "center" }
+      ? { backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.25)), url(${bg.url})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }
       : {
           backgroundImage: [
             "radial-gradient(circle at 88% 12%, rgba(255,255,255,0.20), transparent 42%)",
@@ -117,27 +118,31 @@ export default function HeroBanner() {
 
   return (
     <div className="relative">
-      <section id="gioi-thieu" className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden text-white" style={style}>
+      <section id="gioi-thieu" className="relative flex min-h-svh items-center overflow-hidden text-white lg:h-svh lg:min-h-[640px]" style={style}>
         {/* Khung viền mảnh bên trong, giống khối Liên hệ */}
-        <span aria-hidden className="pointer-events-none absolute inset-3 border border-white/20 sm:inset-4" />
-        <div className="relative mx-auto w-full max-w-[1120px] px-4 py-16 text-center sm:px-6 sm:py-20">
-          <span className="inline-block rounded px-2.5 py-1 text-[11px] font-extrabold tracking-wider" style={{ backgroundColor: "rgba(255,255,255,0.18)" }}>
-            HSA · TSA · THPTQG
-          </span>
-          <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-extrabold leading-[1.1] [text-wrap:balance] sm:text-[52px]">
-            LUYỆN THI ĐÚNG CẤU TRÚC, VÀO PHÒNG TỰ TIN HƠN
-          </h1>
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
-            Làm đề mô phỏng có bấm giờ, chấm điểm ngay khi nộp bài và học cùng cộng đồng, hoàn toàn miễn phí.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <a href={go("/practice")} className="inline-flex items-center gap-2 rounded-md bg-white px-6 py-3 text-sm font-bold shadow-sm transition hover:brightness-95" style={{ color: "var(--brand-red)" }}>
-              Vào phòng luyện
-            </a>
-            <a href="#tinh-nang" className="inline-flex items-center gap-2 rounded-md border px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10" style={{ borderColor: "rgba(255,255,255,0.55)" }}>
-              Xem tính năng
-            </a>
+        <span aria-hidden className="frame-cream pointer-events-none absolute inset-3 sm:inset-4" />
+        <div className="relative mx-auto grid w-full max-w-[1120px] items-center gap-10 px-8 py-20 sm:px-12 sm:py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-14 lg:py-8">
+          <div className="text-left">
+            <span className="text-heavy inline-block rounded px-2.5 py-1 text-[11px] font-black tracking-wider" style={{ backgroundColor: "rgba(255,255,255,0.18)" }}>
+              HSA · TSA · THPTQG
+            </span>
+            <h1 className="text-heavy mt-5 max-w-xl text-4xl font-black leading-[1.1] [text-wrap:balance] sm:text-[46px] lg:text-[44px] xl:text-[50px]">
+              LUYỆN THI ĐÚNG CẤU TRÚC, VÀO PHÒNG TỰ TIN HƠN
+            </h1>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+              Làm đề mô phỏng có bấm giờ, chấm điểm ngay khi nộp bài và học cùng cộng đồng, hoàn toàn miễn phí.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center justify-start gap-3">
+              <a href={go("/practice")} className="btn-tab btn-tab--onlight inline-flex items-center gap-2 bg-white px-8 py-3 text-sm font-bold transition hover:brightness-95" style={{ color: "var(--brand-red)" }}>
+                Vào phòng luyện
+              </a>
+              <a href="#tinh-nang" className="btn-tab btn-tab-outline inline-flex items-center gap-2 px-8 py-3 text-sm font-bold text-white transition hover:bg-white/10">
+                Xem tính năng
+              </a>
+            </div>
           </div>
+
+          <ExamCountdown />
         </div>
       </section>
 

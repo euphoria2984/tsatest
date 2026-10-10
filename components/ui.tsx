@@ -25,15 +25,21 @@ export function PageHead({ title, desc }: { title: string; desc: string }) {
 /** Icon theo thứ tự trong FEATURES: phòng thi, chấm điểm, đánh giá, cộng đồng, tài liệu. */
 const FEATURE_ICONS = [Timer, ClipboardCheck, TrendingUp, Users, Library];
 
-/** Dải ngăn cách giữa các mục: hai đoạn thẳng ngắn ở hai bên, giữa là ô vuông nhỏ xoay 45° thành hình thoi. */
-export function Divider({ className = "" }: { className?: string }) {
-  const line = "h-px w-10 sm:w-14";
-  const lineColor = { backgroundColor: "rgba(var(--brand-red-rgb), 0.35)" };
+/** Dải ngăn cách giữa các mục: đường kẻ hai đầu nhọn hình thoi, giữa là cụm hình thoi và chấm tròn (kiểu viền Genshin). */
+export function Divider({ className = "", tone = "red", width = 280 }: { className?: string; tone?: "red" | "cream"; width?: number }) {
+  const color = tone === "cream" ? "#efe6e2" : "var(--brand-red)";
   return (
-    <div aria-hidden="true" className={`flex items-center justify-center gap-2.5 ${className}`}>
-      <span className={line} style={lineColor} />
-      <span className="h-2 w-2 rotate-45" style={{ backgroundColor: "var(--brand-red)" }} />
-      <span className={line} style={lineColor} />
+    <div aria-hidden="true" className={`flex justify-center ${className}`}>
+      <svg viewBox="0 0 280 16" width={width} height={(width * 16) / 280} style={{ maxWidth: "88%", color, opacity: tone === "cream" ? 0.8 : 0.85 }}>
+        <g fill="currentColor">
+          <path d="M0 8L12 3L24 8L12 13Z" /><path d="M256 8L268 3L280 8L268 13Z" transform="translate(0 0)" />
+          <path d="M87 8L94 5L101 8L94 11Z" /><path d="M179 8L186 5L193 8L186 11Z" />
+          <circle cx="108" cy="8" r="1.8" /><circle cx="172" cy="8" r="1.8" />
+          <path d="M117 8L123 5.5L129 8L123 10.5Z" /><path d="M151 8L157 5.5L163 8L157 10.5Z" />
+          <path d="M140 0L149 8L140 16L131 8Z" />
+        </g>
+        <g stroke="currentColor" strokeWidth="1.2"><path d="M24 8H87" /><path d="M193 8H256" /></g>
+      </svg>
     </div>
   );
 }
@@ -46,7 +52,7 @@ export function FeatureCard({ index, title, desc, className = "" }: { index: num
       className={`group examcard-glow relative flex flex-row items-start gap-4 rounded-sm border bg-white p-5 transition-all duration-300 ease-out hover:-translate-y-1 lg:flex-col ${className}`}
     >
       <span
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm transition-colors duration-300 group-hover:!bg-[var(--brand-red)] group-hover:!text-white"
+        className="cut-corners flex h-11 w-11 shrink-0 items-center justify-center transition-colors duration-300 group-hover:!bg-[var(--brand-red)] group-hover:!text-white"
         style={{ backgroundColor: "var(--brand-pink)", color: "var(--brand-red)" }}
       >
         <Icon size={22} strokeWidth={2.2} />
@@ -72,7 +78,7 @@ export function ExamCard({ examKey }: { examKey: ExamKey }) {
         <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md p-2.5" style={{ backgroundColor: e.soft, boxShadow: `inset 0 0 0 1px ${e.softBorder}` }}>
           <Image src={e.image} alt={e.tag} width={500} height={500} sizes="64px" className="h-full w-full object-contain" />
         </span>
-        <span className="rounded px-2.5 py-1 text-[11px] font-extrabold tracking-wider" style={{ backgroundColor: "var(--brand-pink)", color: "var(--brand-red)" }}>{e.tag}</span>
+        <span className="cut-corners px-2.5 py-1 text-[11px] font-extrabold tracking-wider" style={{ backgroundColor: "var(--brand-pink)", color: "var(--brand-red)" }}>{e.tag}</span>
       </span>
       <span className="mt-4 line-clamp-2 block text-[15px] font-extrabold leading-snug text-gray-800">{e.name}</span>
       <span className="mt-1.5 line-clamp-2 block text-xs leading-relaxed text-gray-500">{e.description}</span>
@@ -83,14 +89,15 @@ export function ExamCard({ examKey }: { examKey: ExamKey }) {
   );
 }
 
-/** Nút lớn kêu gọi sang web chính. */
+/** Nút lớn kêu gọi sang web chính (dạng tab hai đầu nhọn). */
 export function GoButton({ children, path = "/", variant = "red" }: { children: React.ReactNode; path?: string; variant?: "red" | "white" | "ghost" }) {
   const style =
     variant === "white" ? { backgroundColor: "#fff", color: "var(--brand-red)" }
-    : variant === "ghost" ? { border: "1px solid rgba(255,255,255,0.55)", color: "#fff" }
+    : variant === "ghost" ? { color: "#fff" }
     : { backgroundColor: "var(--brand-red)", color: "#fff" };
+  const cls = variant === "white" ? "btn-tab btn-tab--onlight" : variant === "ghost" ? "btn-tab btn-tab-outline" : "btn-tab";
   return (
-    <a href={go(path)} className="inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-bold shadow-sm transition hover:brightness-95" style={style}>
+    <a href={go(path)} className={`${cls} inline-flex items-center gap-2 px-8 py-3 text-sm font-bold transition hover:brightness-95`} style={style}>
       {children}
     </a>
   );

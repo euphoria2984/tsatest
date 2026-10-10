@@ -62,7 +62,7 @@ function Panel({ active, onPick }: { active: string; onPick?: () => void }) {
         <p className="mt-1 text-xs leading-relaxed text-white/80">HSA · TSA · THPTQG, làm đề có bấm giờ, chấm điểm ngay.</p>
         <a
           href={go("/")}
-          className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-white px-3 py-2 text-xs font-bold transition hover:brightness-95"
+          className="btn-tab btn-tab-sm btn-tab--onlight mt-3 inline-flex items-center gap-1.5 bg-white px-5 py-2 text-xs font-bold transition hover:brightness-95"
           style={{ color: "var(--brand-red)" }}
         >
           Vào web luyện thi <ArrowUpRight size={14} strokeWidth={2.6} />

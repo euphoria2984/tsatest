@@ -15,7 +15,7 @@ export default function Footer() {
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/75">Nền tảng luyện thi, ôn tập &amp; cộng đồng học tập. Miễn phí cho mọi người.</p>
           <a
             href={go("/")}
-            className="mt-5 inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-bold shadow-sm transition hover:brightness-95"
+            className="btn-tab btn-tab--onlight mt-5 inline-flex items-center gap-2 bg-white px-6 py-2 text-sm font-bold transition hover:brightness-95"
             style={{ color: "var(--brand-red)" }}
           >
             Vào web luyện thi

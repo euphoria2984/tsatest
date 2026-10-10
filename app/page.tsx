@@ -13,7 +13,7 @@ const STEPS = [
 function Head({ title, hint }: { title: string; hint?: string }) {
   return (
     <div className="mx-auto mb-10 max-w-2xl text-center">
-      <h2 className="text-xl font-black uppercase leading-tight tracking-wide sm:text-2xl" style={{ color: "var(--brand-red)" }}>{title}</h2>
+      <h2 className="text-heavy text-xl font-black uppercase leading-tight tracking-wide sm:text-2xl" style={{ color: "var(--brand-red)" }}>{title}</h2>
       {hint && <p className="mt-2 text-sm leading-relaxed text-gray-500 sm:text-base">{hint}</p>}
     </div>
   );
@@ -43,21 +43,21 @@ export default function HomePage() {
 
       <Divider className="mb-5 mt-12 sm:mt-14" />
 
-      <section id="cach-dung" className="border-y border-[rgba(var(--brand-red-rgb),0.08)] bg-white py-7 sm:py-9">
+      <section id="cach-dung" className="border-y border-[rgba(var(--brand-red-rgb),0.08)] bg-[var(--app-bg)] py-7 sm:py-9">
         <div className="mx-auto max-w-[1120px] px-4 sm:px-6">
           <Head title="Bắt đầu trong bốn bước" hint="Từ lúc mở web đến lúc biết mình cần luyện thêm gì." />
           <ol className="relative grid gap-8 md:grid-cols-4 md:gap-5">
             {/* Đường nối tâm bốn ô tròn, chỉ hiện trên màn hình rộng */}
-            <span aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-6 hidden h-px md:block" style={{ backgroundColor: "rgba(var(--brand-red-rgb), 0.25)" }} />
+            <span aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-[18px] hidden h-px md:block" style={{ backgroundColor: "rgba(var(--brand-red-rgb), 0.25)" }} />
             {STEPS.map((s, i) => (
               <li key={s.t} className="relative flex flex-col items-center">
                 <span
-                  className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-lg font-extrabold tabular-nums text-white ring-[6px] ring-white"
+                  className="relative z-10 flex h-9 w-9 shrink-0 rotate-45 items-center justify-center text-xl tabular-nums text-white ring-[5px] ring-[var(--app-bg)]"
                   style={{ backgroundColor: "var(--brand-red)" }}
                 >
-                  {i + 1}
+                  <span className="font-num -rotate-45 leading-none">{i + 1}</span>
                 </span>
-                <div className="mt-5 w-full flex-1 rounded-sm border border-transparent bg-[var(--app-bg)] px-5 py-6 text-center transition-colors duration-300 hover:border-[var(--brand-red)]">
+                <div className="frame-red-soft mt-6 w-full flex-1 bg-white px-4 py-5 text-center [--fw:10px]">
                   <h3 className="text-[17px] font-extrabold text-gray-800">{s.t}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-gray-500">{s.d}</p>
                 </div>

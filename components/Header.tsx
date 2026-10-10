@@ -27,6 +27,25 @@ function useActiveSection() {
 export default function Header() {
   const active = useActiveSection();
   const [open, setOpen] = useState(false);
+  // Header ẩn phía trên màn hình, trượt xuống khi di chuột lên sát mép trên; rời xuống dưới thì tự thu lại.
+  const [shown, setShown] = useState(false);
+  // Thiết bị cảm ứng không có chuột nên luôn hiện header
+  const [touch, setTouch] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none)");
+    const applyMq = () => setTouch(mq.matches);
+    applyMq();
+    mq.addEventListener("change", applyMq);
+    const onMove = (e: MouseEvent) => {
+      if (e.clientY <= 48) setShown(true);
+      else if (e.clientY > 100) setShown(false);
+    };
+    document.addEventListener("mousemove", onMove, { passive: true });
+    return () => { mq.removeEventListener("change", applyMq); document.removeEventListener("mousemove", onMove); };
+  }, []);
+
+  const visible = shown || open || touch;
 
   useEffect(() => {
     if (!open) return;
@@ -36,7 +55,7 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gray-200/70 bg-white/95 backdrop-blur shadow-[0_1px_2px_rgba(var(--brand-red-rgb),0.05),0_8px_24px_-12px_rgba(var(--brand-red-rgb),0.18)]">
+    <header className={`fixed inset-x-0 top-0 z-40 border-b border-gray-200/70 bg-white/95 backdrop-blur transition-transform duration-300 ease-out focus-within:translate-y-0 ${visible ? "translate-y-0 shadow-[0_1px_2px_rgba(var(--brand-red-rgb),0.05),0_8px_24px_-12px_rgba(var(--brand-red-rgb),0.18)]" : "-translate-y-full"}`}>
       <div className="mx-auto grid h-16 max-w-[1120px] grid-cols-[auto_1fr] items-center gap-4 px-4 sm:px-6 md:grid-cols-[1fr_auto_1fr]">
         <a href="#gioi-thieu" aria-label="Về đầu trang" className="flex shrink-0 items-center justify-self-start">
           <img src="/logo.svg" alt="Aincrad" className="h-6 w-auto sm:h-7" />
@@ -63,7 +82,7 @@ export default function Header() {
         <div className="flex items-center gap-2 justify-self-end">
           <a
             href={go("/")}
-            className="inline-flex items-center gap-1.5 rounded-sm px-4 py-2 text-sm font-bold text-white transition hover:brightness-110"
+            className="btn-tab btn-tab-sm inline-flex items-center gap-1.5 px-5 py-2 text-sm font-bold text-white transition hover:brightness-110"
             style={{ backgroundColor: "var(--brand-red)" }}
           >
             <span className="hidden sm:inline">Vào web luyện thi</span>
