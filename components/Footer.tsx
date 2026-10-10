@@ -37,7 +37,7 @@ export default function Footer() {
           <p className={COL_TITLE}>KỲ THI</p>
           <ul className="mt-4 grid gap-2.5">
             {EXAM_ORDER.map((k) => (
-              <li key={k}><a href={go(`/practice/${k}`)} className={LINK}>Luyện đề {EXAMS[k].tag}</a></li>
+              <li key={k}><a href={go(`${k}`)} className={LINK}>Luyện đề {EXAMS[k].tag}</a></li>
             ))}
           </ul>
         </div>
